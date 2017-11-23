@@ -1,0 +1,14 @@
+{% load base_panels_tags %}
+<!-- Recent Posts -->
+  <section class="box recent-posts">
+    <header>
+      <h2>Recent Posts</h2>
+    </header>
+    {% get_recent_posts as recent_posts %}
+    <ul>
+      {% for post in recent_posts %}
+      <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        <small> <p>by <a href="{% url 'simpleblog:user-posts' post.author %}">{{ post.author }}</a> on {{ post.created|date:'j M Y' }}</p> </small></li>
+      {% endfor %}
+    </ul>
+  </section>

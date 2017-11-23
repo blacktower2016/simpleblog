@@ -1,0 +1,20 @@
+<!-- Pagination -->
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}
+    {% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" class="button previous">Previous Page</a>
+    {% endif %}
+    <div class="pages">
+      {% for page in page_obj.paginator.page_range %}
+        <a href="{{ request.path }}?page={{ page }}{% if request.GET.search %}&search={{ request.GET.search }}
+        {% endif %}" {% if page == page_obj.number %} class="active" {% endif %}>{{ page }}</a>
+      {% endfor %}
+
+
+      <!--<span>&hellip;</span>
+      <a href="#">20</a>-->
+    </div>
+    {% if page_obj.has_next %}
+    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" class="button next">Next Page</a>
+    {% endif %}
+  </div>

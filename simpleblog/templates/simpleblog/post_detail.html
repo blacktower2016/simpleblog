@@ -1,0 +1,113 @@
+
+{% extends 'simpleblog/base.html' %}
+{% block content %}
+
+<article class="box post post-excerpt">
+  <header>
+    <!--
+      Note: Titles and subtitles will wrap automatically when necessary, so don't worry
+      if they get too long. You can also remove the <p> entirely if you don't
+      need a subtitle.
+    -->
+    <h2>{% if not post.is_public %} <sup><span class='draft'>draft</span></sup>{% endif %}
+      <!--<a href="{{post.get_absolute_url}}">-->{{ post.title }}<!--</a>--></h2>
+    <small> by <a href="{%  url "simpleblog:user-posts" post.author %}">{{ post.author }}</a></small>
+    <p>{% if post.subtitle %}{{ post.subtitle }}{% endif %}
+      {% if request.user == post.author %}
+      <a href="{% url 'simpleblog:update-post' post.id %}" class="icon fa-edit" style="float:right;"></a>
+      {% endif %}
+    </p>
+  </header>
+  <div class="info">
+    <!--
+      Note: The date should be formatted exactly as it's shown below. In particular, the
+      "least significant" characters of the month should be encapsulated in a <span>
+      element to denote what gets dropped in 1200px mode (eg. the "uary" in "January").
+      Oh, and if you don't need a date for a particular page or post you can simply delete
+      the entire "date" element.
+
+    -->
+    <span class="date"><span class="month">{{ post.created|date:"M" }}</span>
+    <span class="day">{{ post.created|date:"d" }}</span><span class="year">, {{ post.created|date:"Y" }}</span></span>
+    <!--
+      Note: You can change the number of list items in "stats" to whatever you want.
+    -->
+    {% if post.is_public %}
+    <ul class="stats">
+      <li><a href="{{ post.get_absolute_url }}#comments" class="icon fa-comment">{{ post.comment_set.count }}</a></li>
+      <li><a href="{% url 'simpleblog:like-post' post.pk %}"
+                class="icon fa-heart{% if request.user in post.likes.all %} liked{% endif %}">{{ post.likes.count }}</a></li>
+      <!--
+      <li><a href="#" class="icon fa-twitter">64</a></li>
+      <li><a href="#" class="icon fa-facebook">128</a></li>-->
+    </ul>
+    {% endif %}
+  </div>
+  {% if post.img %}
+  <!--<div class="featured" >-->
+    <a href="{{ post.get_absolute_url }}" class="image centered"><img src="{{ post.img.url }}" alt="" /></a>
+  <!--</div>-->
+  {% endif %}
+  <p>{{ post.text|safe }}</p>
+
+  {% block post_tags %}
+  <p><small>Tags:
+    {% for tag in post.tags.all %}
+      <a href="{% url 'simpleblog:tag-posts' tag %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
+    {% endfor %}
+  </small></p>
+  {% endblock post_tags%}
+
+  {% if post.is_public %}
+    {% block comments %}
+    <div id="comments">
+    {% if user.is_authenticated %}
+    <form method="post" action="">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Comment it</button>
+    </form>
+    {% else %}
+    <p>Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">register</a> to post comments.</p>
+    {% endif %}
+    <hr />
+    {% for comment in post.comment_set.all %}
+      <p><a href="{% url 'simpleblog:user-posts' comment.author %}">{{ comment.author }}</a> <small>commented on {{ comment.created }}:</small></p>
+      <p{%if forloop.last%} id="last_comment"{% endif %}>{{ comment.text|safe}}</p>
+      <hr />
+    {% endfor %}
+    {% endblock comments %}
+  {% endif %}
+</div>
+</article>
+
+{% endblock content %}
+
+{% block csslinks %}
+<!-- include summernote css-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+{% endblock csslinks %}
+
+{% block scripts %}
+<!-- include libraries(bootstrap) -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- include summernote js-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script>
+  $(function(){
+    console.log('ready');
+    $("#id_text").addClass("summernote");
+    $('.summernote').summernote({
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['insert', ['link']],
+      ],
+      styleTags: ['pre', 'h3']
+    });
+  });
+</script>
+
+{% endblock scripts %}

@@ -1,0 +1,13 @@
+{% load base_panels_tags %}
+
+<!-- Calendar -->
+  <section class="box calendar">
+    <header>
+      <h2>Posts of month</h2>
+    </header>
+    <div class="inner">
+
+      {% autoescape off %}{% print_month_calendar %}{% endautoescape %}
+
+    </div>
+  </section>

@@ -1,0 +1,13 @@
+{% load base_panels_tags %}
+<!-- Tags -->
+  <section class="box tags">
+    <header>
+      <h2>Popular tags</h2>
+    </header>
+    {% get_tags as tags %}
+    <ul>
+      {% for tag in tags %}
+        <small><a href="{% url 'simpleblog:tag-posts' tag %}">{{ tag }}</a>({{ tag.posts_number }})</small>&nbsp;
+      {% endfor %}
+    </ul>
+  </section>

@@ -1,0 +1,54 @@
+{% extends 'simpleblog/base.html' %}
+
+{% block content %}
+<article class="box post post-excerpt">
+<header>
+<h2>{{ form_title }}</h2>
+</header>
+{% if form.non_field_errors %}
+non_field_errors
+{{form.non_field_errors}}
+end non_field_errors
+{% endif %}
+<form method="post" enctype="multipart/form-data" action=".">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+{% endblock content %}
+</article>
+
+
+{% block csslinks %}
+<!-- include summernote css-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+{% endblock csslinks %}
+
+{% block scripts %}
+<!-- include libraries(bootstrap) -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- include summernote js-->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script>
+  $(function(){
+    console.log('ready');
+    $("#id_text").addClass("summernote");
+    $('.summernote').summernote({
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'help']] //'codeview'
+      ],
+      styleTags: ['p', 'pre', 'h3']
+    });
+  });
+</script>
+
+{% endblock scripts %}

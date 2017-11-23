@@ -1,0 +1,15 @@
+{% load base_panels_tags %}
+<!-- Recent Comments -->
+  <section class="box recent-comments">
+    <header>
+      <h2>Recent Comments</h2>
+    </header>
+    {% get_recent_comments as recent_comments %}
+    <ul>
+      {% for comment in recent_comments %}
+      <li><a href="{% url 'simpleblog:user-posts' comment.author %}">{{ comment.author }}</a> on <a href="{{ comment.post.get_absolute_url }}">{{ comment.post }}</a></li>
+      {% empty %}
+      <li>No recent comments</li>
+      {% endfor %}
+    </ul>
+  </section>
