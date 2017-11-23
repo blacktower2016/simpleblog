@@ -1,6 +1,9 @@
+cfe/settings/production.py
+media/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
-media/
+
 *.py[cod]
 *$py.class
 
