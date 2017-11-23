@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'simpleblog',
+    'accounts',
 ]
 
 MIDDLEWARE = [

@@ -17,9 +17,9 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from .views import (PostCreateView, PostDetailView, PostListView,
-                    PostUpdateView, PostLikesToggleView, ActivateView   )
+                    PostUpdateView, PostLikesToggleView)
 from .views import PostsByDateView
-from django.views.generic import TemplateView
+#from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^create/$', PostCreateView.as_view(), name = 'create-post'),
@@ -30,6 +30,6 @@ urlpatterns = [
     url(r'^tag/(?P<tag>[\w\s-]+)/$', PostListView.as_view(), name = 'tag-posts'),
     url(r'^user/(?P<user>[\w-]+)/$', PostListView.as_view(), name = 'user-posts'),
     url(r'^user/(?P<user>[\w-]+)/drafts/$', PostListView.as_view(), {'drafts': True}, name = 'drafts'),
-    url(r'^activate/(?P<user_id>[\d-]+)-(?P<token>[\w-]+)/$', ActivateView.as_view(), name="activate"),
+#    url(r'^activate/(?P<user_id>[\d-]+)-(?P<token>[\w-]+)/$', ActivateView.as_view(), name="activate"),
     url(r'^$', PostListView.as_view(), name = 'home'),
 ]
