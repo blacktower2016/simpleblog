@@ -16,7 +16,7 @@ def get_tags():
 
 @register.assignment_tag
 def get_recent_comments():
-    return Comment.objects.all().order_by('-created')[:5]
+    return Comment.objects.filter(post__is_public=True).order_by('-created')[:5]
 
 
 MODEL = Post
