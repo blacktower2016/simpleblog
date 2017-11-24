@@ -9,4 +9,6 @@ Features:
 - calendar of posts
 - new user registration with activation by email (should be configured (change backend and email settings in settings files))
 
+Template design by <a href="http://html5up.net">HTML5 UP</a>
+
 Written with the purpose of training my Django skills.
