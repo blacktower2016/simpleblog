@@ -416,7 +416,7 @@ protocols = [u'http', u'https', u'mailto', u'data']
 summernote_tags = [
     "section","article",
     "h1", "h2", "h3", "h4", "h5", "h6",
-    "b", "i", "strong", "em", "tt",
+    "b", "i", "strong", "em", "tt", "u",
     "p", "br",
     "pre", "span", "div", "blockquote", "code", "hr",
     "ul", "ol", "li", "dd", "dt",
