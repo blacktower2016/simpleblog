@@ -24,6 +24,7 @@ from django.urls import reverse_lazy
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('simpleblog.urls', namespace="simpleblog")),
     url(r'^blog/', include('simpleblog.urls', namespace="simpleblog")),
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
