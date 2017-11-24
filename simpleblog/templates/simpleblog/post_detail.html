@@ -68,7 +68,7 @@
       <button type="submit">Comment it</button>
     </form>
     {% else %}
-    <p>Please <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">register</a> to post comments.</p>
+    <p>Please <a href="{% url 'accounts:login' %}">Login</a> or <a href="{% url 'accounts:signup' %}">register</a> to post comments.</p>
     {% endif %}
     <hr />
     {% for comment in post.comment_set.all %}
