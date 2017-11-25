@@ -1,5 +1,12 @@
+# this particular project
+
 cfe/settings/production.py
 media/
+locale/
+email_folder/
+
+
+#### common ################
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
