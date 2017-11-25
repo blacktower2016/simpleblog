@@ -12,6 +12,8 @@ from .forms import SignUpForm
 
 from django.views.generic import CreateView, View
 
+from django.utils.translation import gettext as _
+
 class NewUserView(CreateView):
     form_class=SignUpForm
     template_name='accounts/registration.html'
@@ -25,7 +27,7 @@ class NewUserView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['form_title'] = 'New User Registration'
+        context['form_title'] = _('New User Registration')
         return context
 
     def form_valid(self, form):
@@ -40,8 +42,8 @@ class NewUserView(CreateView):
 
         return render(self.request,'accounts/messages.html',
                         {'message':{
-                            'title':'New user email confirmation',
-                            'body':'Please check your email to complete the registration.'
+                            'title':_('New user email confirmation'),
+                            'body': _('Please check your email to complete the registration.')
                             }})
 
     def send_activation_email(self, user, to_email):
@@ -54,7 +56,7 @@ class NewUserView(CreateView):
                 'user_id': user.id,
                 'token': token
             })
-        mail_subject = 'Activate your SimpleBlog account.'
+        mail_subject = _('Activate your SimpleBlog account.')
         email = EmailMessage(mail_subject, email_message, to=[to_email])
         email.send()
 
@@ -75,7 +77,7 @@ class ActivateView(View):
 
         return render(self.request,'accounts/messages.html',
                         {'message':{
-                            'title':'Activation failed',
-                            'body':'Please try again'
+                            'title':_('Activation failed'),
+                            'body':_('Please try again')
                             }
                         })
