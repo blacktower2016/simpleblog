@@ -22,12 +22,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import reverse_lazy
 
 from django.conf.urls.i18n import i18n_patterns
-urlpatterns = i18n_patterns(
+
+urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')),]
+
+urlpatterns += i18n_patterns(
     url(r'^admin/', admin.site.urls),
     url(r'^', include('simpleblog.urls', namespace="simpleblog")),
     url(r'^blog/', include('simpleblog.urls', namespace="simpleblog")),
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
