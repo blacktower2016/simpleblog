@@ -13,7 +13,7 @@ end non_field_errors
 <form method="post" enctype="multipart/form-data" action=".">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit">{% trans "Register" context "button" %}</button>
+  <button type="submit">{% trans "Register" context "register button" %}</button>
 </form>
 </article>
 {% endblock content %}
