@@ -6,6 +6,8 @@ from django.forms import widgets
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.models import User
 
+from django.utils.translation import gettext_lazy as _
+
 from simpleblog.models import Comment, Post
 
 
@@ -17,14 +19,14 @@ class PostEditForm(ModelForm):
         model = Post
         fields = ('title', 'subtitle', 'img', 'text', 'tags', 'is_public')
         labels={
-            'is_public':'Publish'
+            'is_public':_('Publish')
         }
 
 
 
 class CommentForm(ModelForm):
 
-    text = CharField(widget=widgets.Textarea(attrs={'rows':'5', 'placeholder':'Type your comment here...'}), label='Your comment:')
+    text = CharField(widget=widgets.Textarea(attrs={'rows':'5', 'placeholder':_('Type your comment here...')}), label='Your comment:')
 
     class Meta:
         model=Comment
