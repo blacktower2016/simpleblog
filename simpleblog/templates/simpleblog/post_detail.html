@@ -37,9 +37,12 @@
       <li><a href="{{ post.get_absolute_url }}#comments" class="icon fa-comment">{{ post.comment_set.count }}</a></li>
       <li><a href="{% url 'simpleblog:like-post' post.pk %}"
                 class="icon fa-heart{% if request.user in post.likes.all %} liked{% endif %}">{{ post.likes.count }}</a></li>
-      <!--
-      <li><a href="#" class="icon fa-twitter">64</a></li>
-      <li><a href="#" class="icon fa-facebook">128</a></li>-->
+      <li><a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+            class="icon fa-twitter"
+             data-show-count="false">&nbsp;</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <!--<a href="#" class="icon fa-twitter">64</a></li>
+      <li><a href="#" class="icon fa-facebook">128</a>--></li>
     </ul>
     {% endif %}
   </div>
