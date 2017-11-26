@@ -13,13 +13,13 @@ from simpleblog.models import Comment, Post
 
 class PostEditForm(ModelForm):
 
-    tags = CharField(max_length=150, required=True)
+    tags = CharField(max_length=150, required=True, label=_("Tags"))
 
     class Meta:
         model = Post
         fields = ('title', 'subtitle', 'img', 'text', 'tags', 'is_public')
         labels={
-            'is_public':_('Publish')
+            'is_public':_('Publish'),
         }
 
 
