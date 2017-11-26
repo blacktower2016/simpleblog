@@ -9,15 +9,15 @@ class CommentInline(admin.TabularInline):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    #model = Tag
-    pass
+    list_display = ['tag_name', 'tag_posts_count']
+    def tag_posts_count(self, obj):
+        return obj.post_set.count()
 
 class TagInline(admin.StackedInline):
     model = Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-
     date_hierarchy = 'created'
     list_display = ('title', 'author', 'created', 'is_public',)
     list_filter = ('is_public', )
