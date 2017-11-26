@@ -2,5 +2,6 @@
 Hi {{ user }},
 Please click on the link to confirm your registration,
 
-http://{{ domain }}{% url 'accounts:activate' user_id=user_id token=token %}
+<a href="http://{{ domain }}{% url 'accounts:activate' user_id=user_id token=token %}">
+  http://{{ domain }}{% url 'accounts:activate' user_id=user_id token=token %}</a>
 {% endautoescape %}
