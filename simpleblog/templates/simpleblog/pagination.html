@@ -1,8 +1,10 @@
 <!-- Pagination -->
+{% load i18n %}
   <div class="pagination">
     {% if page_obj.has_previous %}
     <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}
-    {% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" class="button previous">Previous Page</a>
+    {% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+      class="button previous">{% trans "Previous Page" %}</a>
     {% endif %}
     <div class="pages">
       {% for page in page_obj.paginator.page_range %}
@@ -15,6 +17,8 @@
       <a href="#">20</a>-->
     </div>
     {% if page_obj.has_next %}
-    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}" class="button next">Next Page</a>
+    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}
+      {% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"
+      class="button next">{% trans "Next Page" %}</a>
     {% endif %}
   </div>
