@@ -27,7 +27,7 @@ class Post(models.Model):
     tags = models.ManyToManyField('Tag', verbose_name=_("tags"))
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
-    objects = PostManager() # supported additional methods public() and drafts()
+    objects = PostManager() # supports additional methods public() and drafts()
 
     def get_absolute_url(self):
         #print(self.img)
@@ -37,7 +37,10 @@ class Post(models.Model):
         return self.title
 
     def tags_to_str(self):
-            return ", ".join([tag.tag_name for tag in self.tags.all()])
+        """
+        Return comma separated post tags string.
+        """
+        return ", ".join([tag.tag_name for tag in self.tags.all()])
 
     class Meta:
         ordering = ['-created',]
