@@ -29,6 +29,8 @@ day_abbr = ['Mo','Tu','We','Th','Fr','Sa','Su']
 @register.simple_tag
 def print_month_calendar():
     from simpleblog.helpers.blog_calendar import BlogCalendar
-    b = BlogCalendar(MODEL, DATE_FIELD, URL_NAME, additional_filters=ADDITIONAL_FILTERS, day_abbreviations=day_abbr)
+    b = BlogCalendar(MODEL, DATE_FIELD, URL_NAME,
+                        additional_filters=ADDITIONAL_FILTERS,
+                        day_abbreviations=day_abbr)
     current_date = date.today()
     return b.formatmonth(current_date.year, current_date.month)
