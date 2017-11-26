@@ -4,7 +4,7 @@
   <header>
   <h2><a href="{{post.get_absolute_url}}">Log In</a></h2>
   </header>
-  <form method="post" action="{% url 'login' %}" class="loginform">
+  <form method="post" action="{% url 'accounts:login' %}" class="loginform">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="hidden" name="next" value="{% url 'simpleblog:home' %}" />
