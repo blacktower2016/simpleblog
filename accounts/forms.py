@@ -7,18 +7,19 @@ from django.contrib.auth.models import User
 
 from simpleblog.models import Comment, Post
 
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, gettext_lazy
 
 def username_is_not_numeric(username):
     if username.isdigit():
         raise ValidationError(_('Username can not be entirely numeric'))
 
 class SignUpForm(UserCreationForm):
-    email = EmailField(max_length=200, help_text='Required', required=True)
+    email = EmailField(max_length=200, help_text=gettext_lazy('Required'), required=True)
     username = CharField(max_length=150,
-            help_text=_("<ul><li>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</li> \
+            help_text=gettext_lazy("<ul><li>Required. 150 characters or fewer. \
+                        Letters, digits and @/./+/-/_ only.</li> \
                         <li>Your username can't be entirely numeric.</li></ul>"),
-                         required=True, validators=[username_is_not_numeric])
+                         required=True, validators=[username_is_not_numeric], label=gettext_lazy("Username"))
 
     # email should be unique
     def clean_email(self):
