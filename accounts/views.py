@@ -56,6 +56,7 @@ class NewUserView(CreateView):
             })
         mail_subject = 'Activate your SimpleBlog account.'
         email = EmailMessage(mail_subject, email_message, to=[to_email])
+        email.content_subtype = "html"
         email.send()
 
 
