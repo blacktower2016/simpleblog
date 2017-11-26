@@ -26,7 +26,7 @@ urlpatterns = [
 from django.contrib.auth import views as auth_views
 
 urlpatterns += [
-    url(r'^login/$', auth_views.LoginView.as_view(template_name='login_template.html',
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='accounts/login_template.html',
                     success_url=reverse_lazy('simpleblog:home'),
                     redirect_authenticated_user=False), name="login"),
     url(r'^logout/$', auth_views.LogoutView.as_view(template_name='simpleblog/post_list.html',
