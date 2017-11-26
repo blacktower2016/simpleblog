@@ -1,19 +1,26 @@
+{% load i18n %}
 <!-- Nav -->
   <nav id="nav">
 
       {% if user.is_authenticated %}
     <ul>
-      <li {% if request.resolver_match.url_name == 'create-post'%} class='current'{% endif %}><a href="{% url 'simpleblog:create-post' %}">New Post</a></li>
-      <li {% if request.resolver_match.url_name == 'user-posts'%} class='current'{% endif %}><a href="{% url 'simpleblog:user-posts' user=user.username %}">My Posts ({{ user.post_set.public.count }})</a></li>
-      <li {% if request.resolver_match.url_name == 'drafts'%} class='current'{% endif %}><a href="{% url 'simpleblog:drafts' user=user.username %}">My Drafts ({{ user.post_set.drafts.count }})</a></li>
+      <li {% if request.resolver_match.url_name == 'create-post'%} class='current'{% endif %}>
+        <a href="{% url 'simpleblog:create-post' %}">
+          {% trans "New Post" %}</a></li>
+      <li {% if request.resolver_match.url_name == 'user-posts'%} class='current'{% endif %}>
+        <a href="{% url 'simpleblog:user-posts' user=user.username %}">
+          {% trans "My Posts" %} ({{ user.post_set.public.count }})</a></li>
+      <li {% if request.resolver_match.url_name == 'drafts'%} class='current'{% endif %}>
+        <a href="{% url 'simpleblog:drafts' user=user.username %}">
+          {% trans "My Drafts" %} ({{ user.post_set.drafts.count }})</a></li>
     </ul>
 
       {% endif %}
     <ul>
-      <li {% if request.resolver_match.url_name == 'home'%} class='current'{% endif %}><a href="{% url 'simpleblog:home' %}">Latest Posts</a></li>
+      <li {% if request.resolver_match.url_name == 'home'%} class='current'{% endif %}>
+        <a href="{% url 'simpleblog:home' %}">{% trans "Latest Posts" %}</a></li>
       <!--<li><a href="#">Archives</a></li>
       <li><a href="#">About Me</a></li>
       <li><a href="#">Contact Me</a></li>-->
     </ul>
   </nav>
-  
