@@ -98,12 +98,12 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
 
     # comments form
     def form_valid(self, form):
-        form.instance.text = bleach.clean(
+        form.instance.text = ''.join(bleach.clean(
                                 form.instance.text,
                                 tags=summernote_tags,
                                 attributes=summernote_attrs,
                                 protocols=protocols
-                            ).strip()
+                            ).strip().split('<p><br></p>'))
         form.instance.author = self.request.user
         form.instance.post = self.get_object()
 
