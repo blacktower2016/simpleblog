@@ -1,8 +1,9 @@
+{% load i18n %}
 {% load base_panels_tags %}
 <!-- Recent Posts -->
   <section class="box recent-posts">
     <header>
-      <h2>Recent Posts</h2>
+      <h2>{% trans "Recent Posts" %}</h2>
     </header>
     {% get_recent_posts as recent_posts %}
     <ul>

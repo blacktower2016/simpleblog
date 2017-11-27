@@ -1,6 +1,11 @@
+{% load i18n %}
 {% autoescape off %}
+{% comment %} Translators: this is an activation email template {% endcomment %}
+
+{% blocktrans %}
 Hi {{ user }},
 Please click on the link to confirm your registration,
+{% endblocktrans %}
 
 <a href="http://{{ domain }}{% url 'accounts:activate' user_id=user_id token=token %}">
   http://{{ domain }}{% url 'accounts:activate' user_id=user_id token=token %}</a>

@@ -1,8 +1,13 @@
+{% load i18n %}
 <!-- Login box -->
 <section class="box login">
   {% if user.is_authenticated %}
-  <p>Logged as <a href="{% url 'simpleblog:user-posts' request.user %}">{{ request.user }}</a></p>
-  <a href="{% url 'accounts:logout' %}"><button type="button" style="margin-left:auto; margin-right:auto;">Logout</button></a>
+  <p>{% trans "Logged as" %} <a href="{% url 'simpleblog:user-posts' request.user %}">{{ request.user }}</a></p>
+  <a href="{% url 'accounts:logout' %}">
+    <button type="button" style="margin-left:auto; margin-right:auto;">
+      {% trans "Logout" %}
+    </button>
+  </a>
   {% else %}
 
   <form method="post" action="{% url 'accounts:login' %}" class="loginform">
@@ -10,9 +15,9 @@
     <input type="text" class="text" name="username" placeholder="Username" />
     <input type="password" class="password" name="password" placeholder="Password" />
     <input type="hidden" name="next" value="{% url 'simpleblog:home' %}" />
-    <button type="submit">Log in</button>
+    <button type="submit">{% trans "Log in" %}</button>
   </form>
 
-  <p>or <a href="{% url 'accounts:signup' %}">register</a></p>
+  <p>{% trans "or" %} <a href="{% url 'accounts:signup' %}">{% trans "register" %}</a></p>
   {% endif %}
 </section>

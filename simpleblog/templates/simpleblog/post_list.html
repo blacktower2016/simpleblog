@@ -1,4 +1,5 @@
 {% extends 'simpleblog/base.html' %}
+{% load i18n %}
 {% if headtitle %}
   {% block headtitle %}<h1 class="headertitle">{{ headtitle }}</h1>{% endblock headtitle %}
 {% endif %}
@@ -11,7 +12,11 @@
       if they get too long. You can also remove the <p> entirely if you don't
       need a subtitle.
     -->
-    <h2>{% if not post.is_public %} <sup><span class='draft'>draft</span></sup>{% endif %}<a href="{{post.get_absolute_url}}">{{ post.title }}</a></h2>
+    <h2>
+      {% if not post.is_public %}
+        <sup><span class='draft'>{% trans "draft" %}</span></sup>
+      {% endif %}<a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+    </h2>
     <small> by <a href="{%  url "simpleblog:user-posts" post.author %}">{{ post.author }}</a></small>
 
     <p>{% if post.subtitle %}{{ post.subtitle }}{% endif %}
@@ -54,8 +59,8 @@
   <!--</div>-->
   {% endif %}
 
-  <p class='post-in-list'>{% if post.text|wordcount > 100 %}{{ post.text|striptags|linebreaks|truncatewords_html:70 }}
-    <p  class="centered"><a href="{{ post.get_absolute_url }}">Read more</a></p>{% else %}{{ post.text|striptags }}{% endif %}
+  <p class='post-in-list'>{% if post.text|wordcount > 100 %}{{ post.text|safe|truncatewords_html:45 }}
+    <p  class="centered"><a href="{{ post.get_absolute_url }}">{% trans "Read more" %}</a></p>{% else %}{{ post.text|striptags }}{% endif %}
   </p>
 
 
@@ -67,3 +72,14 @@
   {% include 'simpleblog/pagination.html' with page_obj=page_obj %}
 {% endif %}
 {% endblock content %}
+
+{% block scripts %}
+<!-- google prettify  for code highlighting-->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script>
+  $(function(){
+    $( "pre" ).addClass("prettyprint");
+    $( "code" ).addClass("prettyprint");
+  })
+</script>
+{% endblock scripts %}

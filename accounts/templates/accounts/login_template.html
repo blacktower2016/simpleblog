@@ -1,14 +1,15 @@
 {% extends 'simpleblog/base.html' %}
+{% load i18n %}
 {% block content %}
 <article class="box post post-excerpt">
   <header>
-  <h2><a href="{{post.get_absolute_url}}">Log In</a></h2>
+  <h2>{% trans "Log In" context "login header <h2>" %}</h2>
   </header>
   <form method="post" action="{% url 'accounts:login' %}" class="loginform">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="hidden" name="next" value="{% url 'simpleblog:home' %}" />
-    <button type="submit">Log in</button>
+    <button type="submit">{% trans "Log in" context "login button" %}</button>
   </form>
 </article>
 {% endblock content %}

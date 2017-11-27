@@ -21,6 +21,8 @@ from django.utils.html import strip_tags
 import bleach
 from cfe.helpers.bleach_whitelist import summernote_tags, summernote_attrs, protocols
 
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 
 class PostListView(ListView):
@@ -33,12 +35,16 @@ class PostListView(ListView):
         return context
 
     def get_queryset(self):
+        """
+        Filter objects by tag, by user or by search string and add
+        appropriate "headtitle" param to the context
+        """
         print(self.kwargs)
         user = self.kwargs.get('user')
         query = self.request.GET.get('search')
         tag = self.kwargs.get('tag')
 
-        self.headtitle='Latest posts'
+        self.headtitle=_('Latest posts')
 
         # only published posts
         # methods public() and drafts() are defned in Post model manager PostManager
@@ -51,16 +57,16 @@ class PostListView(ListView):
             if not tag_object:
                 return queryset.none()
             queryset = tag_object.post_set.all().public()
-            self.headtitle = 'Posts tagged with "{}"'.format(tag)
+            self.headtitle = _('Posts tagged with "{tag}"').format(tag=tag)
 
         #posts filtered by user
         if user:
             self.headtitle='{} posts'.format(user)
             if user == self.request.user.username:
                 if self.kwargs.get('drafts'):
-                    self.headtitle='My drafts'
+                    self.headtitle=_('My drafts')
                     return Post.objects.filter(author__username=user).drafts()
-                self.headtitle='My posts'
+                self.headtitle=_('My posts')
             queryset = queryset.filter(author__username=user)
 
         # searching in posts
@@ -70,7 +76,7 @@ class PostListView(ListView):
                                         Q(author__username__icontains=query)|
                                         Q(subtitle__icontains=query)|
                                         Q(tags__tag_name__iexact=query)).distinct()
-            self.headtitle='Searching results: "{}"'.format(query)
+            self.headtitle=_('Searching results: "{}"').format(query)
         return queryset
 
 
@@ -83,7 +89,7 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
         # if post is draft and user is not the author : error 404
         post = super().get_object()
         if (post.is_public == False) and (self.request.user != post.author):
-            raise Http404("No post found matching the query")
+            raise Http404(_("No post found matching the query"))
         return post
 
     # after commenting return to this very page
@@ -92,12 +98,12 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
 
     # comments form
     def form_valid(self, form):
-        form.instance.text = bleach.clean(
+        form.instance.text = ''.join(bleach.clean(
                                 form.instance.text,
                                 tags=summernote_tags,
                                 attributes=summernote_attrs,
                                 protocols=protocols
-                            ).strip()
+                            ).strip().split('<p><br></p>'))
         form.instance.author = self.request.user
         form.instance.post = self.get_object()
 
@@ -113,7 +119,7 @@ class PostCreateView(CreateView, LoginRequiredMixin):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['form_title'] = 'New Post'
+        context['form_title'] = _('New Post')
         return context
 
     # post creating form
@@ -140,7 +146,7 @@ class PostUpdateView(UpdateView, LoginRequiredMixin):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['form_title'] = 'Edit Post'
+        context['form_title'] = _('Edit Post')
         return context
 
     # prepopulate tags field in form with string of tags, separated by comma

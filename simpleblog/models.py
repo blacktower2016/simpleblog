@@ -1,5 +1,6 @@
 from django.db import models
 
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 from django.urls import reverse
 from django.conf import settings
@@ -10,19 +11,23 @@ User = settings.AUTH_USER_MODEL
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=1)
-    title = models.CharField(max_length=50, blank=False, null=False)
-    subtitle = models.CharField(max_length=120, blank=True, null=True)
-    img = models.ImageField(upload_to="blog/images/", blank=True, null=True, verbose_name="featured image")
-    text = models.TextField(blank=False, null=False)
+    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT,
+                default=1, verbose_name=_("author"))
+    title = models.CharField(max_length=50, blank=False, null=False,
+                verbose_name=_("title"))
+    subtitle = models.CharField(max_length=120, blank=True, null=True,
+                verbose_name=_("subtitle"))
+    img = models.ImageField(upload_to="blog/images/", blank=True, null=True,
+                verbose_name=_("featured image"))
+    text = models.TextField(blank=False, null=False, verbose_name=_("text"))
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(default=False)
     slug = models.SlugField(allow_unicode=True)
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', verbose_name=_("tags"))
     likes = models.ManyToManyField(User, blank=True, related_name='post_likes')
 
-    objects = PostManager() # supported additional methods public() and drafts()
+    objects = PostManager() # supports additional methods public() and drafts()
 
     def get_absolute_url(self):
         #print(self.img)
@@ -32,7 +37,10 @@ class Post(models.Model):
         return self.title
 
     def tags_to_str(self):
-            return ", ".join([tag.tag_name for tag in self.tags.all()])
+        """
+        Return comma separated post tags string.
+        """
+        return ", ".join([tag.tag_name for tag in self.tags.all()])
 
     class Meta:
         ordering = ['-created',]

@@ -1,8 +1,9 @@
 {% load base_panels_tags %}
+{% load i18n %}
 <!-- Tags -->
   <section class="box tags">
     <header>
-      <h2>Popular tags</h2>
+      <h2>{% trans "Popular tags" %}</h2>
     </header>
     {% get_tags as tags %}
     <ul>
