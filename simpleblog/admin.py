@@ -5,6 +5,8 @@ from .models import Post, Comment, Tag
 
 from django.db.models import Count
 
+from django.urls import reverse
+
 class CommentInline(admin.TabularInline):
     model = Comment
     extra = 0
@@ -43,6 +45,12 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('text','post', 'author')
-    list_display_links = ('post',)
+    list_display = ('text','post_link', 'author')
+    list_display_links = ('text',)
     list_filter = ('post', )
+
+    # add link to related post admin page
+    def post_link(self, obj):
+        return '<a href="%s">%s</a>' % (reverse("admin:simpleblog_post_change", args=(obj.post.id,)) , obj.post.title)
+
+    post_link.allow_tags=True
