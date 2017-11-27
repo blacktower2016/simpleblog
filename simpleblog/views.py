@@ -35,6 +35,10 @@ class PostListView(ListView):
         return context
 
     def get_queryset(self):
+        """
+        Filter objects by tag, by user or by search string and add
+        appropriate "headtitle" param to the context
+        """
         print(self.kwargs)
         user = self.kwargs.get('user')
         query = self.request.GET.get('search')
