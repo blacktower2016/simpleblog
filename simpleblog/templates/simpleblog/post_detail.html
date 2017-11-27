@@ -9,7 +9,7 @@
       if they get too long. You can also remove the <p> entirely if you don't
       need a subtitle.
     -->
-    <h2>{% if not post.is_public %} <sup><span class='draft'>draft</span></sup>{% endif %}
+    <h2>{% if not post.is_public %} <sup><span class='draft'>{% trans "draft" %}</span></sup>{% endif %}
       <!--<a href="{{post.get_absolute_url}}">-->{{ post.title }}<!--</a>--></h2>
     <small> by <a href="{%  url "simpleblog:user-posts" post.author %}">{{ post.author }}</a></small>
     <p>{% if post.subtitle %}{{ post.subtitle }}{% endif %}
