@@ -26,7 +26,14 @@ class PostEditForm(ModelForm):
 
 class CommentForm(ModelForm):
 
-    text = CharField(widget=widgets.Textarea(attrs={'rows':'5', 'placeholder':_('Type your comment here...')}), label='Your comment:')
+    text = CharField(
+            widget=widgets.Textarea(
+                attrs={
+                    'rows':'5',
+                    'placeholder':_('Type your comment here (max 300 symbols)...')
+                }),
+            label='Your comment:'
+        )
 
     class Meta:
         model=Comment
