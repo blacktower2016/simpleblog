@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-27 18:16+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: accounts/forms.py:14
+msgid "Username can not be entirely numeric"
+msgstr "Имя пользователя не может состоять исключительно из цифр"
+
+#: accounts/forms.py:17
+msgid "Required"
+msgstr "Обязательное поле"
+
+#: accounts/forms.py:19
+msgid ""
+"<ul><li>Required. 150 characters or fewer.                         Letters, "
+"digits and @/./+/-/_ only.</li>                         <li>Your username "
+"can't be entirely numeric.</li></ul>"
+msgstr ""
+"<ul><li>Обязательное поле. Не более 150 символов.                         "
+"Только буквы, цифры и @/./+/-/_ .</li>                         <li>Имя "
+"пользователя не может состоять исключительно из цифр.</li></ul>"
+
+#: accounts/forms.py:22
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: accounts/forms.py:28
+msgid "This email already used"
+msgstr "Этот адрес электронной почты уже используется"
+
+#. Translators: this is an activation email template
+#: accounts/templates/accounts/email_acc_activation.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(user)s,\n"
+"Please click on the link to confirm your registration,\n"
+msgstr ""
+"\n"
+"Здравствуйте, %(user)s,\n"
+"Для завершения регистрации перейдите, пожалуйста, по ссылке,\n"
+
+#: accounts/templates/accounts/login_template.html:6
+msgctxt "login header <h2>"
+msgid "Log In"
+msgstr "Вход"
+
+#: accounts/templates/accounts/login_template.html:12
+msgctxt "login button"
+msgid "Log in"
+msgstr "Войти"
+
+#: accounts/templates/accounts/registration.html:16
+msgctxt "register button"
+msgid "Register"
+msgstr "Регистрация"
+
+#: accounts/views.py:30
+msgid "New User Registration"
+msgstr "Регистрация нового пользователя"
+
+#: accounts/views.py:45
+msgid "New user email confirmation"
+msgstr "Подтверждение адреса электронной почты нового пользователя"
+
+#: accounts/views.py:46
+msgid "Please check your email to complete the registration."
+msgstr ""
+"Пожалуйста, проверьте свой почтовый ящик. Вам отправлено письмо с "
+"инструкциями для завершения регистрации"
+
+#: accounts/views.py:59
+msgid "Activate your SimpleBlog account."
+msgstr "Активация вашего аккаунта на SimpleBlog"
+
+#: accounts/views.py:81
+msgid "Activation failed"
+msgstr "Ошибка активации"
+
+#: accounts/views.py:82
+msgid "Please try again"
+msgstr "Попробуйте еще раз"
+
+#: cfe/settings/local.py:132
+msgid "English"
+msgstr "Английский"
+
+#: cfe/settings/local.py:133
+msgid "Russian"
+msgstr "Русский"
+
+#: simpleblog/forms.py:16 simpleblog/templates/simpleblog/post_detail.html:57
+msgid "Tags"
+msgstr "Теги"
+
+#: simpleblog/forms.py:22
+msgid "Publish"
+msgstr "Опубликовать"
+
+#: simpleblog/forms.py:29
+msgid "Type your comment here..."
+msgstr "Ваш комментарий здесь"
+
+#: simpleblog/models.py:15
+msgid "author"
+msgstr "автор"
+
+#: simpleblog/models.py:17
+msgid "title"
+msgstr "заголовок"
+
+#: simpleblog/models.py:19
+msgid "subtitle"
+msgstr "подзаголовок"
+
+#: simpleblog/models.py:21
+msgid "featured image"
+msgstr "основная картинка"
+
+#: simpleblog/models.py:22
+msgid "text"
+msgstr "текст"
+
+#: simpleblog/models.py:27
+msgid "tags"
+msgstr "теги"
+
+#: simpleblog/templates/simpleblog/pagination.html:7
+msgid "Previous Page"
+msgstr "Назад"
+
+#: simpleblog/templates/simpleblog/pagination.html:22
+msgid "Next Page"
+msgstr "Вперед"
+
+#: simpleblog/templates/simpleblog/post_detail.html:12
+#: simpleblog/templates/simpleblog/post_list.html:17
+msgid "draft"
+msgstr "черновик"
+
+#: simpleblog/templates/simpleblog/post_detail.html:71
+msgid "Comment it"
+msgstr "Комментировать"
+
+#: simpleblog/templates/simpleblog/post_detail.html:74
+msgid "Please"
+msgstr "Пожалуйста"
+
+#: simpleblog/templates/simpleblog/post_detail.html:74
+msgid "Login"
+msgstr "Войдите"
+
+#: simpleblog/templates/simpleblog/post_detail.html:75
+#: simpleblog/templates/simpleblog/sidebar_boxes/login_box.html:21
+msgid "or"
+msgstr "или"
+
+#: simpleblog/templates/simpleblog/post_detail.html:77
+#: simpleblog/templates/simpleblog/sidebar_boxes/login_box.html:21
+msgid "register"
+msgstr "зарегистрируйтесь"
+
+#: simpleblog/templates/simpleblog/post_detail.html:78
+msgid "to post comments."
+msgstr "для того, чтобы оставить комментарий"
+
+#: simpleblog/templates/simpleblog/post_detail.html:83
+msgid "commented on"
+msgstr "прокомментировал"
+
+#: simpleblog/templates/simpleblog/post_form.html:16
+msgid "Save"
+msgstr "Сохранить"
+
+#: simpleblog/templates/simpleblog/post_list.html:63
+msgid "Read more"
+msgstr "Читать дальше"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/calendar_box.html:6
+msgid "Posts of month"
+msgstr "В этом месяце"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/login_box.html:5
+msgid "Logged as"
+msgstr "Вы вошли как"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/login_box.html:8
+msgid "Logout"
+msgstr "Выход"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/login_box.html:18
+msgid "Log in"
+msgstr "Вход"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/navigation.html:9
+#: simpleblog/views.py:122
+msgid "New Post"
+msgstr "Новая запись"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/navigation.html:12
+msgid "My Posts"
+msgstr "Мои записи"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/navigation.html:15
+msgid "My Drafts"
+msgstr "Мои черновики"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/navigation.html:21
+msgid "Latest Posts"
+msgstr "Свежие записи"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/recent_comments_box.html:6
+msgid "Recent Comments"
+msgstr "Недавние комментарии"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/recent_comments_box.html:13
+msgid "No recent comments"
+msgstr "Нет комментариев"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/recent_posts_box.html:6
+msgid "Recent Posts"
+msgstr "Недавние записи"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/search_form.html:5
+msgid "Search"
+msgstr "Искать"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/tags_box.html:6
+msgid "Popular tags"
+msgstr "Топ-10 тегов"
+
+#: simpleblog/templates/simpleblog/sidebar_boxes/text_box.html:6
+msgid ""
+"\n"
+"        <strong>Simpleblog: </strong>  project has been written as an "
+"excercise to learn Django Framework.\n"
+"        "
+msgstr ""
+"\n"
+"        <strong>Simpleblog: </strong>  проект пишется в процессе изучения "
+"Django Framework"
+
+#: simpleblog/views.py:47
+msgid "Latest posts"
+msgstr "Свежие записи"
+
+#: simpleblog/views.py:60
+#, python-brace-format
+msgid "Posts tagged with \"{tag}\""
+msgstr "Записи с тэгом \"{tag}\""
+
+#: simpleblog/views.py:67
+msgid "My drafts"
+msgstr "Мои черновики"
+
+#: simpleblog/views.py:69
+msgid "My posts"
+msgstr "Мои записи"
+
+#: simpleblog/views.py:79
+msgid "Searching results: \"{}\""
+msgstr "Результаты поиска: \"{}\""
+
+#: simpleblog/views.py:92
+msgid "No post found matching the query"
+msgstr "Записи не найдены"
+
+#: simpleblog/views.py:149
+msgid "Edit Post"
+msgstr "Редактирование записи"
+
+#~ msgid "Text"
+#~ msgstr "Текст"
