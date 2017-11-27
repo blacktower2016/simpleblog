@@ -2,7 +2,7 @@
 
 cfe/settings/production.py
 media/
-locale/
+#locale/
 email_folder/
 
 
@@ -57,7 +57,7 @@ coverage.xml
 .hypothesis/
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:
