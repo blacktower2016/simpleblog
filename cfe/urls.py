@@ -27,7 +27,7 @@ urlpatterns = [url(r'^i18n/', include('django.conf.urls.i18n')),]
 
 urlpatterns += i18n_patterns(
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('simpleblog.urls', namespace="simpleblog")),
+    url(r'^', include('simpleblog.urls')),
     url(r'^blog/', include('simpleblog.urls', namespace="simpleblog")),
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
