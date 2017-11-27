@@ -59,7 +59,7 @@
   <!--</div>-->
   {% endif %}
 
-  <p class='post-in-list'>{% if post.text|wordcount > 100 %}{{ post.text|striptags|linebreaks|truncatewords_html:70 }}
+  <p class='post-in-list'>{% if post.text|wordcount > 100 %}{{ post.text|safe|truncatewords_html:45 }}
     <p  class="centered"><a href="{{ post.get_absolute_url }}">{% trans "Read more" %}</a></p>{% else %}{{ post.text|striptags }}{% endif %}
   </p>
 
@@ -72,3 +72,14 @@
   {% include 'simpleblog/pagination.html' with page_obj=page_obj %}
 {% endif %}
 {% endblock content %}
+
+{% block scripts %}
+<!-- google prettify  for code highlighting-->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script>
+  $(function(){
+    $( "pre" ).addClass("prettyprint");
+    $( "code" ).addClass("prettyprint");
+  })
+</script>
+{% endblock scripts %}

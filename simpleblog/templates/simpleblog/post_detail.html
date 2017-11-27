@@ -103,6 +103,9 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 <!-- include summernote js-->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<!-- google prettify  for code highlighting-->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
 <script>
   $(function(){
     console.log('ready');
@@ -116,6 +119,11 @@
       styleTags: ['pre', 'h3']
     });
   });
+
+  $(function(){
+    $( "pre" ).addClass("prettyprint");
+    $( "code" ).addClass("prettyprint");
+  })
 </script>
 
 {% endblock scripts %}
