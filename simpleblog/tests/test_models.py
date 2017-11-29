@@ -7,9 +7,9 @@ from simpleblog.models import Post, Tag
 class TestPostModel(TestCase):
 
     def create_post(self, author=User.objects.get(pk=1), title="test_post_title",
-                     subtitle="test_post_subtitle", text="test post text"):
+                     subtitle="test_post_subtitle", text="test post text", is_public=False):
         return Post.objects.create(author=author, title=title,
-                                    subtitle=subtitle, text=text)
+                                    subtitle=subtitle, text=text, is_public=is_public)
     def create_tags(self, tags_list):
         tags = []
         for tag in tags_list:
@@ -37,6 +37,20 @@ class TestPostModel(TestCase):
         self.assertIn("test_tag_goodbye", post.tags_to_str())
         self.assertNotIn("test_tag_morning", post.tags_to_str())
         self.assertEqual(post.tags_to_str(), "test_tag_hello, test_tag_goodbye")
+
+    def test_post_manager_method_public_return_public_posts(self):
+        public_post = self.create_post(is_public=True)
+        draft_post = self.create_post(is_public=False)
+        queryset = Post.objects.public()
+        self.assertIn(public_post, queryset)
+        self.assertNotIn(draft_post, queryset)
+
+    def test_post_manager_method_drafts_return_draft_posts(self):
+        public_post = self.create_post(is_public=True)
+        draft_post = self.create_post(is_public=False)
+        queryset = Post.objects.drafts()
+        self.assertIn(draft_post, queryset)
+        self.assertNotIn(public_post, queryset)
 
 class TestTagModel(TestCase):
 
