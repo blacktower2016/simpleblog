@@ -39,7 +39,7 @@ class PostListView(ListView):
         Filter objects by tag, by user or by search string and add
         appropriate "headtitle" param to the context
         """
-        print(self.kwargs)
+        #print(self.kwargs)
         user = self.kwargs.get('user')
         query = self.request.GET.get('search')
         tag = self.kwargs.get('tag')
@@ -85,9 +85,9 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
     model = Post
     form_class = CommentForm
 
-    def get_object(self):
+    def get_object(self, *args, **kwargs):
         # if post is draft and user is not the author : error 404
-        post = super().get_object()
+        post = super().get_object(*args, **kwargs)
         if (post.is_public == False) and (self.request.user != post.author):
             raise Http404(_("No post found matching the query"))
         return post
