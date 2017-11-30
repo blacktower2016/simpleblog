@@ -186,3 +186,25 @@ class TestPostUpdateView(TestCase):
         response = self.client.get(reverse("update-post", args=(self.post.id,)))
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Edit Post", response.content)
+
+class TestPostLikesToggleView(TestCase):
+
+    def setUp(self):
+        self.user=create_user()
+        self.client = Client()
+        self.post = create_post(author=self.user)
+        activate('en')
+
+    def test_post_likes_url_redirects_to_post_absolute_url_and_toggles_like(self):
+        #user login
+        url = self.post.get_absolute_url()
+        login = self.client.login(username=self.user.username, password="password")
+        self.assertTrue(login)
+        #toggle like
+        response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.post.likes.count(), 1)
+        #toggle like
+        response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.post.likes.count(), 0)
