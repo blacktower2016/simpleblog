@@ -112,7 +112,7 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
         return redirect(self.get_success_url()+"#last_comment")
 
 
-class PostCreateView(CreateView, LoginRequiredMixin):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class=PostEditForm
     #fields = ['title', 'subtitle', 'img', 'text', 'is_public','tags']
@@ -139,7 +139,7 @@ class PostCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class PostUpdateView(UpdateView, LoginRequiredMixin):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'simpleblog/post_form.html'
     form_class=PostEditForm
