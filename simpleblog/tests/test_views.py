@@ -195,7 +195,7 @@ class TestPostLikesToggleView(TestCase):
         self.post = create_post(author=self.user)
         activate('en')
 
-    def test_post_likes_url_redirects_to_post_absolute_url_and_toggles_like(self):
+    def test_post_likes_view_redirects_to_post_absolute_url_and_toggles_like(self):
         #user login
         url = self.post.get_absolute_url()
         login = self.client.login(username=self.user.username, password="password")
@@ -204,6 +204,16 @@ class TestPostLikesToggleView(TestCase):
         response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.post.likes.count(), 1)
+        #toggle like
+        response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.post.likes.count(), 0)
+
+    def test_post_likes_view_unauthorized_user_cannot_add_like_to_posts(self):
+        #toggle first like
+        response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.post.likes.count(), 0)
         #toggle like
         response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
         self.assertEqual(response.status_code, 302)
