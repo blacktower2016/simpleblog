@@ -1,25 +1,10 @@
 from django.test import TestCase
 
 # Create your tests here.
-from django.contrib.auth.models import User
-from simpleblog.models import Post, Tag
+
+from .creation_utils import create_user, create_post, create_tags
+from simpleblog.models import Post
 from django.urls import reverse
-
-def create_post( author=None, title="test_post_title",
-                 subtitle="test_post_subtitle", text="test post text", is_public=False):
-    if not author:
-        author,created = User.objects.get_or_create(username="mxx",defaults = { password:"password"})
-    return Post.objects.create(author=author, title=title,
-                                subtitle=subtitle, text=text, is_public=is_public)
-def create_tags(tags_list):
-    tags = []
-    for tag in tags_list:
-        tag_object = Tag.objects.create(tag_name=tag)
-        tags.append(tag_object)
-    return tags
-
-def create_user():
-    return User.objects.create(username="mxx", password="password")
 
 class TestPostModel(TestCase):
 
@@ -37,7 +22,7 @@ class TestPostModel(TestCase):
 
     def test_tags_to_str_returns_comma_separated_tags_string(self):
         post = create_post(author = self.user)
-        tags = create_tags(("test_tag_hello", "test_tag_goodbye"))
+        tags = create_tags("test_tag_hello", "test_tag_goodbye")
         post.tags.add(tags[0])
         post.tags.add(tags[1])
         post.save()
@@ -60,16 +45,10 @@ class TestPostModel(TestCase):
         self.assertIn(draft_post, queryset)
         self.assertNotIn(public_post, queryset)
 
+
 class TestTagModel(TestCase):
 
-    def create_tags(self, tags_list):
-        tags = []
-        for tag in tags_list:
-            tag_object = Tag.objects.create(tag_name=tag)
-            tags.append(tag_object)
-        return tags
-
     def test_tag_str_returns_tag_name(self):
-        tags = self.create_tags(("test_tag_hello", "test_tag_goodbye"))
+        tags = create_tags("test_tag_hello", "test_tag_goodbye")
         self.assertEqual(tags[0].__str__(), "test_tag_hello")
         self.assertEqual(tags[1].__str__(), "test_tag_goodbye")
