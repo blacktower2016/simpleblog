@@ -147,3 +147,42 @@ class TestPostDetailView(TestCase):
         response = self.client.get(reverse("simpleblog:view-post", kwargs={'pk':self.draft_post.id}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.draft_post.text)
+
+
+class TestPostCreateView(TestCase):
+
+    def setUp(self):
+        self.user=create_user()
+        self.client = Client()
+        activate('en')
+
+    def test_post_create_view_if_not_logged_in_redirects_to_login_url(self):
+        response = self.client.get(reverse("create-post"))
+        self.assertRedirects(response, "/accounts/login/?next=/en/create/", status_code=302,  target_status_code=302)
+
+    def test_only_logged_usercan_see_creation_form(self):
+        login = self.client.login(username=self.user.username, password="password")
+        self.assertTrue(login)
+        response = self.client.get(reverse("create-post"))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"New Post", response.content)
+
+
+class TestPostUpdateView(TestCase):
+
+    def setUp(self):
+        self.user=create_user()
+        self.client = Client()
+        self.post = create_post(author=self.user)
+        activate('en')
+
+    def test_post_create_view_if_not_logged_in_redirects_to_login_url(self):
+        response = self.client.get(reverse("update-post", args=(self.post.id,)))
+        self.assertRedirects(response, "/accounts/login/?next=/en/"+str(self.post.id)+"/edit/", status_code=302,  target_status_code=302)
+
+    def test_only_logged_usercan_see_creation_form(self):
+        login = self.client.login(username=self.user.username, password="password")
+        self.assertTrue(login)
+        response = self.client.get(reverse("update-post", args=(self.post.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Edit Post", response.content)
