@@ -169,15 +169,32 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
                             ).strip()
         return super().form_valid(form)
 
-
+from django.http import JsonResponse
 class PostLikesToggleView(RedirectView, LoginRequiredMixin):
     """
     Toggle post likes
     """
     pattern_name = 'simpleblog:view-post'
 
-    def get_redirect_url(self, *args, **kwargs):
+    def post(self, *args, **kwargs):
+        """ Toggle likes with ajax """
+        data = {}
+        post = get_object_or_404(Post, pk=kwargs['pk'])
+        if self.request.is_ajax():
+            if self.request.user.is_authenticated:
+                data['user'] = True;
+                if self.request.user in post.likes.all():
+                    post.likes.remove(self.request.user)
+                else:
+                    post.likes.add(self.request.user)
+                data['likes'] = post.likes.count()
+            else:
+                data['errors'] = _("You must login to rate the posts.")
+        return JsonResponse(data)
 
+
+    def get_redirect_url(self, *args, **kwargs):
+        """toggle likes without ajax"""
         post = get_object_or_404(Post, pk=kwargs['pk'])
         if self.request.user.is_authenticated:
             if self.request.user in post.likes.all():

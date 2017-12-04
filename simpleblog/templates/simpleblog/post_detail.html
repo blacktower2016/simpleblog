@@ -123,7 +123,45 @@
   $(function(){
     $( "pre" ).addClass("prettyprint");
     $( "code" ).addClass("prettyprint");
-  })
+  });
+
+  //===========Ajax Likes (jQuery)===================
+  //----Add csrf token to the request header (django docs)------
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+          }
+      }
+  });
+//------------
+
+  $(".fa-heart").on("click",function(event){
+    event.preventDefault();
+    console.log(event.currentTarget);
+    let $thisURL = $(event.currentTarget).attr("href");
+    console.log($thisURL);
+    $.ajax({
+      url: $thisURL,
+      method: "POST",
+      success: function(data) {
+        if (data['errors']) {
+          alert(data['errors']);
+        } else if (data['user']===true) {
+          $(event.currentTarget).toggleClass("liked");
+          $(event.currentTarget).html(data['likes']);
+        }
+      },
+      error: function(data){
+        console.log(data['errors']);
+      }
+    });
+  });
 </script>
+
 
 {% endblock scripts %}
