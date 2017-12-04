@@ -218,3 +218,33 @@ class TestPostLikesToggleView(TestCase):
         response = self.client.get(reverse("simpleblog:like-post", args=(self.post.id,)))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(self.post.likes.count(), 0)
+
+
+    def test_ajax_post_user_is_not_logged_id(self):
+
+        payload = {}
+        self.assertEqual(self.post.likes.count(), 0)
+        response = self.client.post(reverse("simpleblog:like-post",
+                args=(self.post.id,)), payload, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(self.post.likes.count(), 0)
+
+    def test_ajax_post_user_is_logged_id(self):
+        login = self.client.login(username=self.user.username, password="password")
+        self.assertTrue(login)
+        payload = {}
+
+        # like count = 0
+        self.assertEqual(self.post.likes.count(), 0)
+
+        # click like - user likes post
+        response = self.client.post(reverse("simpleblog:like-post",
+                args=(self.post.id,)), payload, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(self.post.likes.count(), 1)
+
+        # click like - user dislikes post
+        response = self.client.post(reverse("simpleblog:like-post",
+                args=(self.post.id,)), payload, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(self.post.likes.count(), 0)
