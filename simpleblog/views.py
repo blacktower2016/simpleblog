@@ -80,7 +80,7 @@ class PostListView(ListView):
         return queryset
 
 
-
+from django.contrib import messages
 class PostDetailView(DetailView, FormMixin, ProcessFormView):
     model = Post
     form_class = CommentForm
@@ -109,6 +109,7 @@ class PostDetailView(DetailView, FormMixin, ProcessFormView):
 
         # save form and return to this very page
         form.save()
+        messages.success(self.request, _("Your comment has been added successfully."))
         return redirect(self.get_success_url()+"#last_comment")
 
 
@@ -135,7 +136,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         # tags from string will be saved to m2m post.tags field
         tags = strip_tags(form.cleaned_data['tags']).split(", ")
         form.cleaned_data['tags'] = [Tag.objects.get_or_create(tag_name=tag.lower())[0] for tag in tags]
-
         return super().form_valid(form)
 
 
