@@ -14,7 +14,7 @@
     <small> by <a href="{%  url "simpleblog:user-posts" post.author %}">{{ post.author }}</a></small>
     <p>{% if post.subtitle %}{{ post.subtitle }}{% endif %}
       {% if request.user == post.author %}
-      <a href="{% url 'simpleblog:update-post' post.id %}" class="icon fa-edit" style="float:right;"></a>
+      <a href="{% url 'simpleblog:update-post' post.id %}" style="float:right;"><i class="icon fa-edit">&nbsp;</i></a>
       {% endif %}
     </p>
   </header>
