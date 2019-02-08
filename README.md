@@ -11,4 +11,4 @@ Features:
 
 Template design by <a href="http://html5up.net">HTML5 UP</a>
 
-Written with the purpose of training my Django skills.
+Written with the purpose of learning and improving my Django skills.
